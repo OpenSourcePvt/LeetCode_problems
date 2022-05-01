@@ -1,0 +1,58 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+566. Reshape the Matrix\
+Easy\
+In MATLAB, there is a handy function called reshape which can reshape an m x n matrix into a new one with a different size r x c keeping its original data.\
+\
+You are given an m x n matrix mat and two integers r and c representing the number of rows and the number of columns of the wanted reshaped matrix.\
+\
+The reshaped matrix should be filled with all the elements of the original matrix in the same row-traversing order as they were.\
+\
+If the reshape operation with given parameters is possible and legal, output the new reshaped matrix; Otherwise, output the original matrix.\
+\
+Example 1:\
+\
+Input: mat = [[1,2],[3,4]], r = 1, c = 4\
+Output: [[1,2,3,4]]\
+Example 2:\
+\
+Input: mat = [[1,2],[3,4]], r = 2, c = 4\
+Output: [[1,2],[3,4]]\
+*/
+\f1\b0 \
+\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+		int[][] mat = \{\
+		    \
+		\};\
+	\}\
+	\
+	public static int[][] matrixReshape(int[][] mat, int r, int c) \{\
+        if(mat.length*mat[0].length != r*c)\{\
+            return mat;\
+        \}\
+        int arr[][] = new int[r][c];\
+        int row = 0, col=0;\
+        \
+        for(int i=0; i<r; i++)\{\
+            for(int j=0; j<c; j++)\{\
+                if(col == mat[0].length)\{\
+                    col=0;\
+                    row++;\
+                \}\
+                arr[i][j] = mat[row][col];\
+                col++;\
+            \}\
+        \}\
+        return arr;\
+    \}\
+\}\
+}

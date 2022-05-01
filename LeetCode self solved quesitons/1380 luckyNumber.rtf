@@ -1,0 +1,125 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+1380. Lucky Numbers in a Matrix\
+Easy\
+Given an m x n matrix of distinct numbers, return all lucky numbers in the matrix in any order.\
+\
+A lucky number is an element of the matrix such that it is the minimum element in its row and maximum in its column.\
+\
+Example 1:\
+\
+Input: matrix = [[3,7,8],[9,11,13],[15,16,17]]\
+Output: [15]\
+Explanation: 15 is the only lucky number since it is the minimum in its row and the maximum in its column.\
+Example 2:\
+\
+Input: matrix = [[1,10,4,2],[9,3,8,7],[15,16,17,12]]\
+Output: [12]\
+Explanation: 12 is the only lucky number since it is the minimum in its row and the maximum in its column.\
+Example 3:\
+\
+Input: matrix = [[7,8],[1,2]]\
+Output: [7]\
+Explanation: 7 is the only lucky number since it is the minimum in its row and the maximum in its column.\
+*/
+\f1\b0 \
+import java.util.Arrays;\
+import java.util.List;\
+import java.util.ArrayList;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+	    int[][] matrix = \{\
+	        \{1,10,4,2\},\{9,3,8,7\},\{15,16,17,12\}\
+	    \};\
+	    \
+	    System.out.println(luckyNumbers(matrix));\
+	\}\
+	\
+	// mycode\
+	\
+// 	public static List<Integer> luckyNumbers (int[][] matrix) \{\
+//         List<Integer> list = new ArrayList<Integer>();\
+//         if( matrix.length == 1 && matrix[0].length == 1) \{\
+//             list.add(matrix[0][0]);\
+//             return list;\
+//         \}\
+//         int col = 0;\
+//         for( int i = 0; i < matrix.length; i++) \{\
+//             int max = matrix[i][0];\
+//             for( int j = 0; j < matrix[i].length; j++) \{\
+//                 if( max > matrix[i][j]) \{\
+//                     max = matrix[i][j];\
+//                     col = j;\
+//                 \}\
+//             \}\
+            \
+//             if( maxIsGreatestInCol(matrix,max,col)) \{\
+//                 list.add(max);\
+//                 break;\
+//             \}\
+//         \}\
+//         return list;\
+//     \}\
+    \
+//     static boolean maxIsGreatestInCol(int[][] matrix, int max,int col) \{\
+//         boolean flag = true;\
+//         for( int i = 0; i < matrix.length; i++) \{\
+//             for( int j = 0; j < matrix[i].length; j++) \{\
+//                 if( max < matrix[i][col]) \{\
+//                     flag = false;\
+//                     break;\
+//                 \}\
+//             \}\
+//         \}\
+//         return flag;\
+//     \}\
+\
+\
+//another approach is \
+//1. find min in row\
+//2. check whether the min number is greatest in that col\
+//3. run this for number of rows times\
+\
+    public static List<Integer> luckyNumbers (int[][] matrix) \{\
+        List<Integer> list = new ArrayList<Integer>();\
+        if( matrix.length == 1 && matrix[0].length == 1) \{\
+            list.add(matrix[0][0]);\
+            return list;\
+        \}\
+        //run for loop for each rows\
+        for (int i = 0; i < matrix.length; i++) \{\
+            int max = 0;\
+            int min = Integer.MAX_VALUE;\
+            int col = 0;\
+            //now find min number in current rows\
+            for( int j = 0; j < matrix[i].length; j++) \{\
+                if( min > matrix[i][j]) \{\
+                    min = matrix[i][j];\
+                    col = j;\
+                \}\
+            \}\
+            \
+            //now find the max of the column where max of row is present\
+            for(int j = 0; j < matrix.length; j++) \{\
+                if( max < matrix[j][col] ) \{\
+                    max = matrix[j][col];\
+                \}\
+            \}\
+            \
+            //check if both the elements are same\
+            if( min == max) \{\
+                list.add(max);\
+                return list;\
+            \}\
+        \}\
+        return list;\
+    \}\
+\}\
+}

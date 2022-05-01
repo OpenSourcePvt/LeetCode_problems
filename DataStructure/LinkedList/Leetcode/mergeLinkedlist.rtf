@@ -1,0 +1,258 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+21. Merge Two Sorted Lists\
+Easy\
+\
+You are given the heads of two sorted linked lists list1 and list2.\
+\
+Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.\
+\
+Return the head of the merged linked list.\
+\
+ \
+\
+Example 1:\
+\
+\
+Input: list1 = [1,2,4], list2 = [1,3,4]\
+Output: [1,1,2,3,4,4]\
+Example 2:\
+\
+Input: list1 = [], list2 = []\
+Output: []\
+Example 3:\
+\
+Input: list1 = [], list2 = [0]\
+Output: [0]\
+\
+*/
+\f1\b0 \
+\
+leetcode method\
+/*\
+ * Definition for singly-linked list.\
+ * public class ListNode \{\
+ *     int val;\
+ *     ListNode next;\
+ *     ListNode() \{\}\
+ *     ListNode(int val) \{ this.val = val; \}\
+ *     ListNode(int val, ListNode next) \{ this.val = val; this.next = next; \}\
+ * \}\
+ */\
+class Solution \{\
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) \{\
+        \
+        ListNode dummyHead = new ListNode();\
+        ListNode tail = dummyHead;\
+        \
+        while( list1 != null & list2 != null) \{\
+            if( list1.val < list2.val) \{\
+                tail.next = list1;\
+                list1 = list1.next;\
+            \}else \{\
+                tail.next = list2;\
+                list2 = list2.next;\
+            \}\
+            tail = tail.next;\
+        \} \
+    tail.next = ( list1 != null) ? list1 : list2;\
+    return dummyHead.next;\
+    \}\
+\}\
+\
+\
+returning list method\
+class LL \{\
+    \
+    private Node head;\
+    private Node tail;\
+    \
+    private int size;\
+    \
+    public LL() \{\
+        this.size = 0;\
+    \}\
+    \
+    public void insertFirst(int val) \{\
+        Node node = new Node(val);\
+        node.next = head;\
+        head = node;\
+        \
+        if( tail == null) \{\
+            tail = head;\
+        \}\
+        \
+        size += 1;\
+    \}\
+    \
+    public void insertLast(int val) \{\
+        if( tail == null) \{\
+            insertFirst(val);\
+            return;\
+        \}\
+        Node node = new Node(val);\
+        tail.next = node;\
+        tail = node;\
+        size += 1;\
+    \}\
+    \
+    public void insertAtIndex(int val, int index) \{\
+        if( index == 0) \{\
+            insertFirst(val);\
+        \}\
+        if( index == size) \{\
+            insertLast(val);\
+        \}\
+        Node node = new Node(val);\
+        Node temp = head;\
+        int count = 1;\
+        while ( temp != null && count != index) \{\
+            temp = temp.next;\
+            count += 1;\
+        \}\
+        node.next = temp.next;\
+        temp.next = node;\
+        temp = node;\
+        size += 1;\
+    \}\
+    \
+    public int deleteFirst() \{\
+        int val = head.value;\
+        head = head.next;\
+        if( head == null) \{\
+            tail = null;\
+        \}\
+        size -= 1;\
+        return val;\
+    \}\
+    public int deleteLast() \{\
+        int val = tail.value;\
+        if( head == null) \{\
+            System.out.println("List is empty");\
+            return 0;\
+        \}\
+        if( size <= 1) \{\
+            return deleteFirst();\
+        \}\
+        Node secondLast = get(size - 2); //size - 1 is the last one\
+        tail.next = secondLast;\
+        tail = secondLast;\
+        tail.next = null;\
+        size -= 1;\
+        return val;\
+    \}\
+    \
+    public int deleteAtIndex(int index) \{\
+        if( head == null) \{\
+            return 0;\
+        \}\
+        if( index == 0)\{\
+            deleteFirst();\
+        \}\
+        if( index == size) \{\
+            deleteLast();\
+        \}\
+        if( index > size)\{\
+            System.out.println("array index out of bound");\
+            return 0;\
+        \}\
+        Node previousNode = get(index - 1);\
+        Node currentNode = get(index);\
+        previousNode.next = currentNode.next;\
+        int val = currentNode.value;\
+        return val;\
+    \}\
+    \
+    public int findIndexOfVal(int val) \{\
+        Node temp = head;\
+        int count = 0;\
+        while ( temp.value != val) \{\
+            temp = temp.next;\
+            count++;\
+        \}\
+        return count;\
+    \}\
+    \
+    private Node get(int index) \{\
+        Node temp = head;\
+        for( int i = 0; i < index; i++) \{\
+            temp = temp.next;\
+        \}\
+        return temp;\
+    \}\
+    public void display() \{\
+        Node temp = head;\
+        while( temp != null) \{\
+            System.out.print(temp.value + "->");\
+            temp = temp.next;\
+        \}\
+        System.out.println("END");\
+    \}\
+    \
+    private class Node \{\
+        private int value;\
+        private Node next;\
+        \
+        public Node(int value) \{\
+        this.value = value;\
+    \}\
+    \
+        public Node(int value, Node next) \{\
+        this.value = value;\
+        this.next = next;\
+    \}\
+    \}\
+\
+\
+    public static LL merge(LL first, LL second) \{\
+        //leetcode\
+        Node f = first.head;\
+        Node s = second.head;\
+        \
+        LL ans = new LL();\
+        \
+        while(f != null && s != null) \{\
+            if( f.value < s.value) \{\
+                ans.insertLast(f.value);\
+                f = f.next;\
+            \}else \{\
+                ans.insertLast(s.value);\
+                s = s.next;\
+            \}\
+        \}\
+        \
+        while( f != null) \{\
+            ans.insertLast(f.value);\
+            f = f.next;\
+        \}\
+        \
+        while( s != null) \{\
+            ans.insertLast(s.value);\
+            s = s.next;\
+        \}\
+        return ans;\
+    \}\
+    \
+    \
+    public void removeDuplicates() \{\
+        Node node = head;\
+        \
+        while(node.next != null) \{\
+            if(node.value == node.next.value) \{\
+                node.next = node.next.next;\
+                size -= 1;\
+            \}else \{\
+                node = node.next;\
+            \}\
+        \}\
+        \
+        tail = node;\
+        tail.next = null;\
+    \}\
+\}}

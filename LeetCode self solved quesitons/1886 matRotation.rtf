@@ -1,0 +1,100 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+1886. Determine Whether Matrix Can Be Obtained By Rotation\
+Easy\
+Given two n x n binary matrices mat and target, return true if it is possible to make mat equal to target by rotating mat in 90-degree increments, or false otherwise.\
+\
+Example 1:\
+\
+Input: mat = [[0,1],[1,0]], target = [[1,0],[0,1]]\
+Output: true\
+Explanation: We can rotate mat 90 degrees clockwise to make mat equal target.\
+Example 2:\
+\
+Input: mat = [[0,1],[1,1]], target = [[1,0],[0,1]]\
+Output: false\
+Explanation: It is impossible to make mat equal to target by rotating mat.\
+Example 3:\
+\
+Input: mat = [[0,0,0],[0,1,0],[1,1,1]], target = [[1,1,1],[0,1,0],[0,0,0]]\
+Output: true\
+Explanation: We can rotate mat 90 degrees clockwise two times to make mat equal target.\
+*/
+\f1\b0 \
+import java.util.Arrays;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+		int[][] mat = \{\
+		  //  \{0,0,0\},\{0,1,0\},\{1,1,1\}\
+		    \{0,0,0\},\{0,1,0\},\{1,1,1\}\
+		\};\
+		int[][] target = \{\
+		  //  \{1,1,1\},\{0,1,0\},\{0,0,0\}\
+		  \
+            \{1,1,1\},\{0,1,0\},\{0,0,0\}\
+		\};\
+		System.out.println(findRotation(mat,target));\
+	\}\
+	public static boolean findRotation(int[][] mat, int[][] target) \{\
+	    if ( mat.length == 1 && mat[0].length == 1) \{\
+	        if(mat[0][0] == target[0][0]) \{\
+	            return true;\
+	        \}\
+	        return false;\
+	    \}\
+        boolean flag = true;\
+        for( int i = 0; i < 4; i++) \{\
+            if( !matchWithTarget(mat,target)) \{\
+                flag = false;\
+            \}else \{\
+                flag = true;\
+                break;\
+            \}\
+            mat = rotateMat(mat);\
+        \}\
+        return flag;\
+    \}\
+    \
+    static boolean matchWithTarget(int[][] mat, int[][] target) \{\
+        boolean flag = true;\
+        for( int i = 0; i < mat.length; i++) \{\
+            for( int j = 0; j < mat[0].length; j++) \{\
+                if( mat[i][j] != target[i][j]) \{\
+                    flag = false;\
+                    break;\
+                \}\
+            \}\
+            if( flag == false) \{\
+                break;\
+            \}\
+        \}\
+	    return flag;\
+    \}\
+    \
+    static int[][] rotateMat(int[][] mat) \{\
+        int N = mat.length;\
+        // Traverse each cycle\
+        for (int i = 0; i < N / 2; i++)\
+        \{\
+            for (int j = i; j < N - i - 1; j++)\
+            \{\
+                // Swap elements of each cycle\
+                // in clockwise direction\
+                int temp = mat[i][j];\
+                mat[i][j] = mat[N - 1 - j][i];\
+                mat[N - 1 - j][i] = mat[N - 1 - i][N - 1 - j];\
+                mat[N - 1 - i][N - 1 - j] = mat[j][N - 1 - i];\
+                mat[j][N - 1 - i] = temp;\
+            \}\
+        \}\
+        return mat;\
+    \}\
+\}\
+}

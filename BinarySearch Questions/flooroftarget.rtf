@@ -1,0 +1,51 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 //return the greatest element smaller than target i.e find floor of the target number form array\
+public class MyClass \{\
+    public static void main(String args[]) \{\
+         int[] arr = \{-64,-34,-23,-11,0,6,8,14,26,45,65,72,76,85,98\};\
+        // int[] arr1 = \{98,92,88,85,74,45,36,22,18,15,2,0,-6,-12,-24,-45,-65,-76\};\
+        // int[] arr1 = \{45,45,45,45,45,45,45,45,45,45,45,45,45,45,45\};\
+        int target = -65;\
+        // int target1 = 45;\
+        System.out.println(orderAgnosticBinarySearch(arr,target));\
+        // System.out.println(orderAgnosticBinarySearch(arr1,target1));\
+    \}\
+    \
+    // Assumed that array is sorted return number: greatest <= targetno\
+    static int orderAgnosticBinarySearch(int[] arr, int target) \{\
+        int start = 0;\
+        int end = arr.length - 1;\
+        \
+        //what if start and end on last element and num< target no\
+        if ( target < arr[0]) \{\
+            return -1;\
+        \}\
+        \
+        //Check whether the array is ascending or descending return true on ascending and false on descending\
+        boolean isAsc = arr[start] <= arr[end];\
+        // isAsc = arr[start] <= arr[end] ? true : false;\
+        while( start <= end)\{\
+        // int mid = (start + end) / 2;  //Here if value of start and end is large then it is not able to store in int in java\
+        int mid = start + (end - start) / 2; // i.e (2start + end - start) / 2\
+        if ( arr[mid] == target) \{\
+            return mid;\
+        \}\
+        if ( isAsc) \{\
+            if (target < arr[mid]) \{\
+                    end = mid - 1;\
+            \}else \{\
+                    start = mid + 1 ;\
+            \}\
+    \
+        \}\
+        \}\
+        //retrun when start is greater than end as the start element will be the element which is smallest greater element in array\
+    return arr[end]; \
+    \}\
+\}}

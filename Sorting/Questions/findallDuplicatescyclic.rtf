@@ -1,0 +1,102 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+https://leetcode.com/problems/find-all-duplicates-in-an-array/\
+\
+442. Find All Duplicates in an Array\
+Medium\
+\
+Given an integer array nums of length n where all the integers of nums are in the range [1, n] and each integer appears once or twice, return an array of all the integers that appears twice.\
+\
+You must write an algorithm that runs in O(n) time and uses only constant extra space.\
+\
+Example 1:\
+\
+Input: nums = [4,3,2,7,8,2,3,1]\
+Output: [2,3]\
+Example 2:\
+\
+Input: nums = [1,1,2]\
+Output: [1]\
+Example 3:\
+\
+Input: nums = [1]\
+Output: []\
+\
+Constraints:\
+\
+n == nums.length\
+1 <= n <= 105\
+1 <= nums[i] <= n\
+Each element in nums appears once or twice.\
+*/\
+// 02/07/2022 12:13	Accepted	8 ms	67.2 MB	java
+\f1\b0 \
+\
+import java.util.Arrays;\
+import java.util.List;\
+import java.util.ArrayList;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+	    int[] arr3 = \{ 4,3,2,7,8,2,3,1\};\
+        System.out.println(findDuplicates(arr3));\
+		System.out.println(Arrays.toString(arr3));\
+	\}\
+	\
+	static List<Integer> findDuplicates(int[] nums) \{\
+        int i = 0;\
+        List<Integer> arrList = new ArrayList<>();\
+	    while( i < nums.length) \{\
+	        //check correct index of i\
+	        if( nums[i] != nums[nums[i] - 1]) \{\
+	            swap( nums, i, nums[i] - 1 );\
+	        \}else \{\
+	            i++;\
+	        \}\
+        \}\
+        \
+        for ( int index = 0; index < nums.length; index++) \{\
+            if( index + 1 != nums[index]) \{\
+	                arrList.add(nums[nums[index] - 1]);\
+    	        \}\
+        \}\
+	    return arrList;\
+    \}\
+    \
+// 	static int findDisappearedNumbers(int[] nums) \{\
+//         int i = 0;\
+// 	    while( i < nums.length) \{\
+// 	        //check correct index of i\
+// 	        if( nums[i] != nums[nums[i] - 1]) \{\
+// 	            swap( nums, i, nums[i] - 1 );\
+// 	        \}else \{\
+// 	            i++;\
+// 	        \}\
+// 	    \}\
+	    \
+// 	   // List<Integer> arrList = new ArrayList<>();\
+	    \
+// 	   //// search missing Number\
+// 	   // for(int index = 0; index < nums.length; index++) \{\
+// 	   //     if( index + 1 != nums[index]) \{\
+// 	   //         return nums[index];\
+// 	   //     \}\
+// 	   // \}\
+	    \
+// 	    return -1;\
+//     \}\
+    \
+	//for swapping the variables\
+	static void swap(int[] arr, int first, int second) \{\
+	    int temp = arr[first];\
+        	arr[first] = arr[second];\
+        	arr[second] = temp;\
+	\}\
+\}\
+}

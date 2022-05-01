@@ -1,0 +1,118 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+bubble sort on simple linked list with first and second pointer\
+*/
+\f1\b0 \
+public class LL\
+\{\
+    \
+    private Node head;\
+    private Node tail;\
+    \
+    private int size;\
+    \
+    public LL() \{\
+        this.size = 0;\
+    \}\
+	\
+	public void insertFirst(int val) \{\
+        Node node = new Node(val);\
+        node.next = head;\
+        head = node;\
+        \
+        if( tail == null) \{\
+            tail = head;\
+        \}\
+        \
+        size += 1;\
+    \}\
+    \
+	public void insertLast(int value) \{\
+        if( tail == null) \{\
+            insertFirst(value);\
+            return;\
+        \}\
+        Node node = new Node(value);\
+        tail.next = node;\
+        tail = node;\
+        size += 1;\
+    \}\
+    \
+    private Node get(int index) \{\
+        Node temp = head;\
+        for( int i = 0; i < index; i++) \{\
+            temp = temp.next;\
+        \}\
+        return temp;\
+    \}\
+    \
+	public void bubbleSort() \{\
+	    bubbleSort(size - 1, 0);\
+	\}\
+	\
+	public void bubbleSort(int row, int col) \{\
+	    if( row == 0) \{\
+	        return;\
+	    \}\
+	    \
+	    if( col < row) \{\
+	        Node first = get(col);\
+	        Node second = get(col + 1);\
+	        \
+	        if( first.value > second.value) \{\
+	            //swap\
+	            if( first ==  head) \{\
+	                head = second;\
+	                first.next = second.next;\
+	                second.next = first;\
+	            \}else if( second == tail) \{\
+	                Node prev = get(col - 1);\
+	                prev.next = second;\
+	                tail = first;\
+	                first.next = null;\
+	                second.next = tail;\
+	            \}else \{\
+	               Node prev = get(col - 1);\
+	               prev.next = second;\
+	               first.next = second.next;\
+	               second.next = first;\
+	            \}\
+	        \}\
+	        \
+	        bubbleSort( row, col + 1);\
+	    \}else \{\
+	        bubbleSort( row - 1, 0);\
+	    \}\
+	\}\
+	\
+	private class Node \{\
+        private int value;\
+        private Node next;\
+        \
+        public Node(int value) \{\
+        this.value = value;\
+    \}\
+    \
+        public Node(int value, Node next) \{\
+        this.value = value;\
+        this.next = next;\
+    \}\
+    \}\
+    \
+    public void display() \{\
+        Node temp = head;\
+        while( temp != null) \{\
+            System.out.print(temp.value + "->");\
+            temp = temp.next;\
+        \}\
+        System.out.println("END");\
+    \}\
+\}\
+\
+}

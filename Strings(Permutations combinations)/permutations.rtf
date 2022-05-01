@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+Recursion - Permutations (Theory + Code + Tips)\
+*/
+\f1\b0 \
+import java.util.ArrayList;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+// 		permutations("","abcd");\
+// ArrayList<String> ans = permutationsArrayList("","abc");\
+// System.out.println(ans);\
+System.out.println(permutationsCount("","abc"));\
+	\}\
+	\
+	static void permutations(String processed, String unprocessed) \{\
+	    if( unprocessed.isEmpty()) \{\
+	        System.out.println(processed);\
+	        return;\
+	    \}\
+	    \
+	    char ch = unprocessed.charAt(0);\
+	    \
+	    for( int i = 0; i <= processed.length(); i++) \{\
+	        String f = processed.substring(0, i);\
+	        String s = processed.substring(i, processed.length());\
+	        permutations(f + ch + s, unprocessed.substring(1));\
+	    \}\
+	\}\
+	\
+	static ArrayList<String> permutationsArrayList(String processed, String unprocessed) \{\
+	    if( unprocessed.isEmpty()) \{\
+	        ArrayList<String> list = new ArrayList<>();\
+	        list.add(processed);\
+	        return list;\
+	    \}\
+	    \
+	    char ch = unprocessed.charAt(0);\
+	    ArrayList<String> ans = new ArrayList<>();\
+	    for( int i = 0; i <= processed.length(); i++) \{\
+	        String f = processed.substring(0, i);\
+	        String s = processed.substring(i, processed.length());\
+	        ans.addAll(permutationsArrayList(f + ch + s, unprocessed.substring(1)));\
+	    \}\
+	    \
+	    return ans;\
+	\}\
+	\
+	\
+	static int permutationsCount(String processed, String unprocessed) \{\
+	    if( unprocessed.isEmpty()) \{\
+	        return 1;\
+	    \}\
+	    \
+	    char ch = unprocessed.charAt(0);\
+	    int count = 0;\
+	    for( int i = 0; i <= processed.length(); i++) \{\
+	        String f = processed.substring(0, i);\
+	        String s = processed.substring(i, processed.length());\
+	        count = count + permutationsCount(f + ch + s, unprocessed.substring(1));\
+	    \}\
+	    return count;\
+	\}\
+\}}

@@ -1,0 +1,102 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww15760\viewh11340\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+maze backtracking\
+*/
+\f1\b0 \
+import java.util.Arrays;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+		\
+		boolean[][] mazeBoard = \{\
+	       \{true, true, true\},\
+	       \{true, true, true\},\
+	       \{true, true, true\}\
+	   \};\
+	   int[][] path = new int[mazeBoard.length][mazeBoard[0].length];\
+	   //mazeAllWays("", mazeBoard, r, c);\
+	   allPathPrint("", mazeBoard, 0, 0, path, 1);\
+	\}\
+	\
+	static void mazeAllWays( String processed, boolean[][] mazeBoard, int r, int c) \{\
+	    if( r == mazeBoard.length - 1 && c == mazeBoard[0].length - 1) \{\
+	        System.out.println(processed);\
+	        return;\
+	    \}\
+	    \
+	    if( !mazeBoard[r][c]) \{\
+	        return;\
+	    \}\
+	   \
+	   mazeBoard[r][c] = false;\
+	    //right\
+	    if( c < mazeBoard[0].length - 1) \{\
+	        mazeAllWays(processed + 'R', mazeBoard, r, c + 1);\
+	    \}\
+	    //left\
+	    if( c > 0) \{\
+	        mazeAllWays(processed + 'L', mazeBoard, r, c - 1);\
+	    \}\
+	    //up\
+	    if( r > 0) \{\
+	        mazeAllWays(processed + 'U', mazeBoard, r - 1, c);\
+	    \}\
+	    //down\
+	    if( r < mazeBoard.length - 1) \{\
+	        mazeAllWays(processed + 'D', mazeBoard, r + 1, c);\
+	    \}\
+	    \
+	    //This line is where the function will be over\
+	    //So before the function gets removed, also remove the changes that were made by that function\
+	    mazeBoard[r][c] = true;\
+	\}\
+	\
+	\
+	static void allPathPrint( String processed, boolean[][] mazeBoard, int r, int c, int[][] path, int step) \{\
+	    if( r == mazeBoard.length - 1 && c == mazeBoard[0].length - 1) \{\
+	        //print path\
+	        path[r][c] = step;\
+	        for( int[] arr: path) \{\
+	            System.out.println(Arrays.toString(arr));\
+	        \}\
+	        System.out.println(processed);\
+	        System.out.println();\
+	        return;\
+	    \}\
+	    \
+	    if( !mazeBoard[r][c]) \{\
+	        return;\
+	    \}\
+	   \
+	   mazeBoard[r][c] = false;\
+	   path[r][c] = step;\
+	   //down\
+	    if( r < mazeBoard.length - 1) \{\
+	        allPathPrint(processed + 'D', mazeBoard, r + 1, c, path, step + 1);\
+	    \}\
+	    //right\
+	    if( c < mazeBoard[0].length - 1) \{\
+	        allPathPrint(processed + 'R', mazeBoard, r, c + 1, path, step + 1);\
+	    \}\
+	    //up\
+	    if( r > 0) \{\
+	        allPathPrint(processed + 'U', mazeBoard, r - 1, c, path, step + 1);\
+	    \}\
+	    //left\
+	    if( c > 0) \{\
+	        allPathPrint(processed + 'L', mazeBoard, r, c - 1, path, step + 1);\
+	    \}\
+	    \
+	    //This line is where the function will be over\
+	    //So before the function gets removed, also remove the changes that were made by that function\
+	    mazeBoard[r][c] = true;\
+	    path[r][c] = 0;\
+	\}\
+\}\
+}

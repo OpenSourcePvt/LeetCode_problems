@@ -1,0 +1,95 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+34. Find First and Last Position of Element in Sorted Array\
+Medium\
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.\
+\
+If target is not found in the array, return [-1, -1].\
+\
+You must write an algorithm with O(log n) runtime complexity.\
+\
+Example 1:\
+\
+Input: nums = [5,7,7,8,8,10], target = 8\
+Output: [3,4]\
+Example 2:\
+\
+Input: nums = [5,7,7,8,8,10], target = 6\
+Output: [-1,-1]\
+Example 3:\
+\
+Input: nums = [], target = 0\
+Output: [-1,-1]\
+ \
+Constraints:\
+\
+0 <= nums.length <= 105\
+-109 <= nums[i] <= 109\
+nums is a non-decreasing array.\
+-109 <= target <= 109\
+*/\
+
+\f1\b0 import java.util.Arrays;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+		int[] nums = \{5,7,7,8,8,10\};\
+		int target = 8;\
+		System.out.println(Arrays.toString(searchRange(nums, target)));\
+	\}\
+	\
+	public static int[] searchRange(int[] nums, int target) \{\
+	    \
+	    int[] indexes = new int[2];\
+	    indexes[0] = findFirst(nums, target);\
+	    indexes[1] = findLast(nums, target);\
+	    return indexes;\
+    \}\
+    \
+    static int findFirst(int[] nums, int target) \{\
+        int first = 0;\
+        int last = nums.length - 1;\
+        int index = -1;\
+        while( first <= last) \{\
+            int mid = first + ( last - first) / 2;\
+            if( nums[mid] == target) \{\
+                index = mid;\
+                last = mid - 1;\
+            \}\
+            \
+            if( nums[mid] >= target) \{\
+                last = mid - 1;\
+            \}else \{\
+                first = mid + 1;\
+            \}\
+        \}\
+        return index;\
+    \}\
+    \
+    static int findLast(int[] nums, int target) \{\
+        int first = 0;\
+        int last = nums.length - 1;\
+        int index = -1;\
+        while( first <= last) \{\
+            int mid = first + ( last - first) / 2;\
+            if( nums[mid] == target) \{\
+                index = mid;\
+                first = mid + 1;\
+            \}\
+            \
+            if( nums[mid] <= target) \{\
+                first = mid + 1;\
+            \}else \{\
+                last = mid - 1;\
+            \}\
+        \}\
+        return index;\
+    \}\
+\}\
+}

@@ -1,0 +1,130 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2580
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 /*\
+bubble sort\
+\
+1)Basically for already sorted array you have to do only single pass of outer loop and for non sorted array do n-i-1 passes\
+2)Time complexity in best case (Array is already sorted) = O(N))\
+worst case (Array is sorted in opposite direction) = O(square(N))\
+\
+\
+Selection sort\
+1)Basically for already sorted array the max value is going to be calculated always and the comparisions for outer pass also\
+So Time Complexity (best case) = O(square(N))\
+2)Time complexity in worst case is also same as the best as array is not sorted and finding max number and swapping takes place \
+so Time complexity (worst case) = O(square(N))\
+\
+Insertion Sort\
+For every index put the index element at the correct index of Left Hand Side Array\
+and at each iteration it maintains partial sorted array\
+Time coplexity best case = O(N)\
+Time complexity worst case = O(square(N))\
+\
+Cyclic Sort\
+Time compelxity best case = O(N)\
+Time complexity worst case = O(N)\
+*/\
+
+\f1\b0 import java.util.Arrays;\
+public class Main\
+\{\
+	public static void main(String[] args) \{\
+		int[] arr = \{ 1,4,-23,-16,9,13,26\};\
+		bubbleSort(arr);\
+		System.out.println(Arrays.toString(arr));\
+		int[] arr1 = \{ 1,4,-23,-16,9,13,26\};\
+        selectionSort(arr1);\
+		System.out.println(Arrays.toString(arr1));\
+		int[] arr2 = \{ 1,4,-23,0,-16,9,13,26\};\
+        insertionSort(arr2);\
+		System.out.println(Arrays.toString(arr2));\
+		\
+		int[] arr3 = \{ 1,2,3,4,5,6\};\
+        cyclicSort(arr3);\
+		System.out.println(Arrays.toString(arr3));\
+		\
+	\}\
+	\
+	//Cyclic sort\
+	//Cyclic sort works only for the continueous elements to be sorted in worst Time complexity is = O(N) and in best case complexity is O(N)\
+	//Lots of Amazone and Google and Facebook questions asked on this thing\
+	static void cyclicSort(int[] arr) \{\
+	    int i = 0;\
+	    while( i < arr.length) \{\
+	        //check correct index of i\
+	        int correct = arr[i] - 1;\
+	        if( arr[i] != arr[correct]) \{\
+	            swap( arr, i, correct);\
+	        \}else \{\
+	            i++;\
+	        \}\
+	    \}\
+	\}\
+	\
+	//insertion sort\
+	static void insertionSort(int[] arr) \{\
+	    for( int i = 0; i < arr.length - 1; i++) \{\
+	        for( int j = i + 1; j > 0; j--) \{\
+	            if(arr[j] < arr[j - 1]) \{\
+	                swap(arr, j, j-1);\
+	            \}else \{\
+	                break;\
+	            \}\
+	        \}\
+	    \}\
+	\}\
+	\
+	//Selection sort\
+	static void selectionSort(int[] arr) \{\
+	    for ( int i = 0; i < arr.length; i++) \{\
+	        //find the maximum item in the remaining array and swap with correct Index\
+	        int last = arr.length - i - 1;\
+	        int maxIndex = findMaxNumber(arr, last);\
+    	    swap(arr,maxIndex, last);\
+	    \}\
+	\}\
+	\
+	//function to find the maximum item from remaining array in seleciotn sort\
+	static int findMaxNumber(int[] arr, int last) \{\
+	    int maxIndex = 0;\
+	    for ( int i = 1; i <= last; i++) \{\
+	        if( arr[maxIndex] < arr[i]) \{\
+	            maxIndex = i;\
+	        \}\
+	    \}\
+	    return maxIndex;\
+	\}\
+	\
+	//bubble sort\
+	static void bubbleSort(int[] arr) \{\
+	    boolean isSwapped;\
+	    \
+	    for(int i = 0; i < arr.length; i++) \{\
+	        isSwapped = true;\
+	        for( int j = 1; j < arr.length - i; j++) \{\
+	            if( arr[j] < arr[j - 1]) \{\
+	                swap(arr, j, j - 1);\
+	                isSwapped = false;\
+	            \}\
+	        \}\
+	        \
+	        if ( isSwapped) \{\
+	            break;\
+	        \}\
+	    \}\
+	\}\
+	\
+	\
+	//for swapping the variables\
+	static void swap(int[] arr, int first, int second) \{\
+	    int temp = arr[first];\
+        	arr[first] = arr[second];\
+        	arr[second] = temp;\
+	\}\
+ \}\
+}
